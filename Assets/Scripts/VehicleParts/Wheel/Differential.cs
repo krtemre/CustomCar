@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.VehicleParts.Wheel
@@ -10,41 +6,52 @@ namespace Assets.Scripts.VehicleParts.Wheel
     public class Differential : MonoBehaviour
     {
         //----- Fields & Props -----
-        [SerializeField] private int InputCogTeethNumber = 10;
-        [SerializeField] private int OutputCogTeethNumber = 38;
-
-        private float LastWheelRatio;
-
+        private Gear.Gear LastGear;
+        [SerializeField] Gear.GearData LastGearData;
         [SerializeField] private List<Wheel> Wheels;
+
+        public float SpeedInKMH;
+        [SerializeField] private Speedometer speedoMeter;
         //----- Methods -----
         private void Awake()
         {
-            if(InputCogTeethNumber <= 0)
+            if (LastGearData == null)
             {
-                InputCogTeethNumber = 10;
+                Debug.LogError("Last Gear Data is NULL");
             }
-            if (OutputCogTeethNumber <= 0)
+            else
             {
-                OutputCogTeethNumber = 38;
+                LastGear = new Gear.Gear(LastGearData);
             }
 
-            LastWheelRatio = OutputCogTeethNumber / InputCogTeethNumber;
-
-            if(Wheels == null)
+            if (Wheels == null)
             {
                 Debug.LogError("Wheels does not assigned...");
                 Wheels = new List<Wheel>();
             }
         }
 
-        public void ShaftInput(float RPM)
+        public float ShaftInput(float RPM)
         {
-            float outputRPM = RPM / LastWheelRatio;
+            if (Wheels.Count <= 0)
+            {
+                Debug.LogWarning("No Wheel exists.");
+                return -1f;
+            }
+
+            float outputRPM = LastGear.OutputRpm(RPM);
 
             foreach (var wheel in Wheels)
             {
                 wheel.DifferentialInput(outputRPM);
             }
+
+            SpeedInKMH = Wheels[0].SpeedInKMH;
+
+            speedoMeter.UpdateSpeedometer(SpeedInKMH / 300);
+            speedoMeter.TryUpdateDigitalSpeed((int)SpeedInKMH);
+
+            return SpeedInKMH;
         }
     }
 }

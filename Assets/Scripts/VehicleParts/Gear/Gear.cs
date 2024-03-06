@@ -2,35 +2,37 @@ using UnityEngine;
 
 namespace Assets.Scripts.VehicleParts.Gear
 {
-    public class Gear : MonoBehaviour
+    public class Gear
     {
         //----- Fields & Props -----
-        [SerializeField] private GearData Data;
-        private float cogRatio;
+        public GearData Data;
+        public float CogRatio;
 
         //----- Methods -----
-        private void Awake()
+
+        public Gear(GearData data)
         {
+            Data = data;
+
             if (Data == null)
             {
                 Debug.LogError("Data is missing...");
-                cogRatio = 1;
+                CogRatio = 1;
             }
             else
             {
-                cogRatio = Data.CogNumber / Data.CounterCogNumber;
+                CogRatio = (float)Data.CogNumber / Data.CounterCogNumber;
             }
-
         }
 
         public float OutputRpm(float rpm)
         {
-            return rpm / cogRatio;
+            return rpm / CogRatio;
         }
 
         public float OutputTorque(float torque)
         {
-            return torque * cogRatio;
+            return torque * CogRatio;
         }
     }
 
@@ -38,21 +40,21 @@ namespace Assets.Scripts.VehicleParts.Gear
     [CreateAssetMenu(fileName = "GearData", menuName = "Vehicle/GearData")]
     public class GearData : ScriptableObject
     {
-        private int shiftNumber;
+        [SerializeField] private int shiftNumber;
         public int ShiftNumber
         {
             get { return shiftNumber; }
             set { shiftNumber = value; }
         }
 
-        private int cogNumber;
+        [SerializeField] private int cogNumber;
         public int CogNumber
         {
             get { return cogNumber; }
             set { cogNumber = value; }
         }
 
-        private int counterCogNumber;
+        [SerializeField] private int counterCogNumber;
         public int CounterCogNumber
         {
             get { return counterCogNumber; }

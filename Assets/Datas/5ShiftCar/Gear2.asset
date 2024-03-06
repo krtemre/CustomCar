@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae8a2d093b1487a488e415e4d4ee863e, type: 3}
-  m_Name: EngineData
-  m_EditorClassIdentifier: 
-  PistonCount: 6
-  SinglePistonPower: 50
+  m_Script: {fileID: 0}
+  m_Name: Gear2
+  m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.VehicleParts.Gear:GearData
+  shiftNumber: 2
+  cogNumber: 40
+  counterCogNumber: 20

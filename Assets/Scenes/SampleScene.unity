@@ -391,6 +391,8 @@ GameObject:
   - component: {fileID: 182889444}
   - component: {fileID: 182889446}
   - component: {fileID: 182889445}
+  - component: {fileID: 182889448}
+  - component: {fileID: 182889447}
   m_Layer: 0
   m_Name: TestCar
   m_TagString: Untagged
@@ -407,11 +409,12 @@ Transform:
   m_GameObject: {fileID: 182889443}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 9.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1570866655}
+  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &182889445
@@ -426,13 +429,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80ab513437c968489561fe8bcf8dbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gearBoxData: {fileID: 11400000, guid: 55e5679c7d70c9d45ae1bba13ce67584, type: 2}
-  wheels:
-  - {fileID: 1571166710}
-  - {fileID: 1571166708}
-  - {fileID: 1571166706}
-  - {fileID: 1571166692}
-  currentShiftIndex: 2
+  Datas:
+  - {fileID: 11400000, guid: ecbe55543880c004fa22e4098a8fe618, type: 2}
+  - {fileID: 11400000, guid: 1756c4b914c73354ebbd1a1379c7e8f1, type: 2}
+  - {fileID: 11400000, guid: b47c75e7800a1194bb6e21c8a9df1b3b, type: 2}
+  - {fileID: 11400000, guid: f176c71ab6b50f84aa980c50e6eaab4e, type: 2}
+  - {fileID: 11400000, guid: b1ac689acbe3a3c40ba791b5e2c3e2f5, type: 2}
+  ReverseData: {fileID: 11400000, guid: c195b2e879cdf8c409d2e3335e8f5da7, type: 2}
+  CurrentShiftIndex: 0
+  differential: {fileID: 182889448}
 --- !u!114 &182889446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,13 +450,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c7f7823625bd3488de71f717dd054e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutomaticShift: 0
-  engineData: {fileID: 11400000, guid: fe9235fdbb6aa65498c3af0675bed138, type: 2}
-  GearBox: {fileID: 182889445}
-  CurrentRPM: 0
-  speed: 0
-  speedIndicator: {fileID: 1231989334}
-  rpmIndicator: {fileID: 131611198}
+  Data: {fileID: 11400000, guid: fe9235fdbb6aa65498c3af0675bed138, type: 2}
+  EngineRPM: 0
+  gearBox: {fileID: 182889445}
+  rpmMeter: {fileID: 131611198}
+  IdleEngineRPM: 1000
+  GearBoxConnection: 0
+  SpeedInKMH: 0
+--- !u!114 &182889447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182889443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e90097478e8e6641a6d849eb419c931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engine: {fileID: 182889446}
+  AccelartingKeyCode: 119
+  DeaccelertingKeyCode: 115
+--- !u!114 &182889448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182889443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705996e00d6fa31488686455574dd61c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastGearData: {fileID: 11400000, guid: e98395aaef8de684eafa751300714b89, type: 2}
+  Wheels:
+  - {fileID: 1571166710}
+  - {fileID: 1571166708}
+  - {fileID: 1571166706}
+  - {fileID: 1571166692}
+  SpeedInKMH: 0
+  speedoMeter: {fileID: 1231989334}
 --- !u!1 &354639150
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,11 +775,11 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0.039564703, y: -0.9514182, z: 0.13826057, w: -0.27225372}
-  m_LocalPosition: {x: -5.0361204, y: 3.567719, z: 14.590528}
+  m_LocalPosition: {x: -5.0361204, y: 3.567719, z: 4.610528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 182889444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1231989331
 PrefabInstance:
@@ -2314,9 +2354,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 182889444}
     m_Modifications:
+    - target: {fileID: 180199724866020651, guid: 01ab1c42abdd9e046804452278247899, type: 3}
+      propertyPath: WheelCircumferenceInMeters
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089954449057844692, guid: 01ab1c42abdd9e046804452278247899, type: 3}
+      propertyPath: WheelCircumferenceInMeters
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5794580271802880627, guid: 01ab1c42abdd9e046804452278247899, type: 3}
       propertyPath: m_Name
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302731798947515103, guid: 01ab1c42abdd9e046804452278247899, type: 3}
+      propertyPath: WheelCircumferenceInMeters
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7269580155351667329, guid: 01ab1c42abdd9e046804452278247899, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2358,6 +2410,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8419300978166986707, guid: 01ab1c42abdd9e046804452278247899, type: 3}
+      propertyPath: WheelCircumferenceInMeters
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2367,7 +2423,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 1570866647}
   - {fileID: 18240459}
